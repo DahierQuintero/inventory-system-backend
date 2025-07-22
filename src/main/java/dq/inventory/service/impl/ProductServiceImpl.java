@@ -1,6 +1,7 @@
 package dq.inventory.service.impl;
 
 import dq.inventory.entity.Product;
+import dq.inventory.exception.ProductNotFoundException;
 import dq.inventory.repository.IProductRepository;
 import dq.inventory.service.IProductService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -26,7 +27,18 @@ public class ProductServiceImpl implements IProductService {
     @Override
     public Product getProductById(Integer id) {
         return productRepository.findById(id)
-                .orElseThrow(() -> new RuntimeException("Product not found with id: " + id));
+                .orElseThrow(() -> new ProductNotFoundException("Product not found with id: " + id));
+    }
+
+    @Override
+    public Product updateProductById(Integer id, Product product) {
+        Product existingProduct = productRepository.findById(id)
+                .orElseThrow(() -> new ProductNotFoundException("Product not found with id: " + id));
+
+        existingProduct.setDescription(product.getDescription());
+        existingProduct.setPrice(product.getPrice());
+        existingProduct.setExistence(product.getExistence());
+        return productRepository.save(existingProduct);
     }
 
     @Override

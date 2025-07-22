@@ -9,6 +9,8 @@ public interface IProductService {
 
     Product getProductById(Integer id);
 
+    Product updateProductById(Integer id, Product product);
+
     Product saveProduct(Product product);
 
     void deleteProduct(Integer id);
