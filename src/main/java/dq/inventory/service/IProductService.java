@@ -3,6 +3,7 @@ package dq.inventory.service;
 import dq.inventory.entity.Product;
 
 import java.util.List;
+import java.util.Map;
 
 public interface IProductService {
     List<Product> listProducts();
@@ -13,5 +14,5 @@ public interface IProductService {
 
     Product saveProduct(Product product);
 
-    void deleteProduct(Integer id);
+    Map<String, Boolean> deleteProduct(Integer id);
 }
